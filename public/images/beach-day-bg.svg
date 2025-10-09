@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+  <!-- Sky gradient -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E0F6FF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="oceanGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A90A4;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#5FB3CC;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="sandGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#F4E5D3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8D4B8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="1920" height="1080" fill="url(#skyGradient)"/>
+
+  <!-- Sun -->
+  <!--<circle cx="1600" cy="200" r="80" fill="#FDB813" opacity="0.8"/>
+  <circle cx="1600" cy="200" r="100" fill="#FDB813" opacity="0.3"/>-->
+
+  <!-- Ocean layers for depth -->
+  <path d="M 0 500 Q 480 480 960 500 T 1920 500 L 1920 800 L 0 800 Z" fill="url(#oceanGradient)" opacity="0.9"/>
+  <path d="M 0 520 Q 480 510 960 520 T 1920 520 L 1920 800 L 0 800 Z" fill="#5FB3CC" opacity="0.6"/>
+
+  <!-- Gentle waves -->
+  <path d="M 0 500 Q 240 490 480 500 T 960 500 T 1440 500 T 1920 500"
+        stroke="#FFFFFF" stroke-width="2" fill="none" opacity="0.4"/>
+  <path d="M 0 530 Q 300 520 600 530 T 1200 530 T 1920 530"
+        stroke="#FFFFFF" stroke-width="1.5" fill="none" opacity="0.3"/>
+
+  <!-- Beach/Sand -->
+  <ellipse cx="960" cy="900" rx="1360" ry="250" fill="url(#sandGradient)"/>
+
+  <!-- Lone palm tree silhouette on right for balance -->
+  <g transform="translate(300, 750)" opacity="0.8">
+    <!-- Trunk -->
+    <path d="M 0 0 Q -5 80 0 200" stroke="#8B4513" stroke-width="8" fill="none"/>
+    <!-- Palm fronds -->
+    <path d="M 0 0 Q -80 -40 -120 -60" stroke="#8B4513" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 0 0 Q -60 -70 -80 -110" stroke="#8B4513" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 0 0 Q 0 -80 0 -120" stroke="#8B4513" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 0 0 Q 60 -70 80 -110" stroke="#8B4513" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <path d="M 0 0 Q 80 -40 120 -60" stroke="#8B4513" stroke-width="4" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Distant sailboat (optional detail) -->
+  <g opacity="0.5">
+    <polygon points="1200,450 1200,520 1190,520" fill="#FFFFFF"/>
+    <line x1="1190" y1="520" x2="1210" y2="520" stroke="#8B4513" stroke-width="2"/>
+  </g>
+
+  <!-- Subtle clouds -->
+  <ellipse cx="300" cy="150" rx="100" ry="30" fill="#FFFFFF" opacity="0.4"/>
+  <ellipse cx="350" cy="160" rx="80" ry="25" fill="#FFFFFF" opacity="0.4"/>
+  <ellipse cx="800" cy="200" rx="120" ry="35" fill="#FFFFFF" opacity="0.3"/>
+  <ellipse cx="1400" cy="120" rx="90" ry="28" fill="#FFFFFF" opacity="0.35"/>
+</svg>

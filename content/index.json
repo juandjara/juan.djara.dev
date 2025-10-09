@@ -1,0 +1,42 @@
+{
+  "title": "Juan D. Jara",
+  "subtitle": "Web Developer",
+  "socials": [
+    {
+      "icon": "/icons/fediverse.svg",
+      "label": "WAFRN",
+      "link": "https://app.wafrn.net/javascript"
+    },
+    {
+      "icon": "/icons/bluesky.svg",
+      "label": "Bluesky",
+      "link": "https://bsky.app/profile/djara.dev"
+    },
+    {
+      "icon": "/icons/twitter.svg",
+      "label": "Twitter",
+      "link": "https://twitter.com/_juandjara",
+      "hidden": true
+    },
+    {
+      "icon": "/icons/mastodon.svg",
+      "label": "Mastodon",
+      "link": "https://paquita.masto.host/@juandjara"
+    },
+    {
+      "icon": "/icons/github.svg",
+      "label": "Github",
+      "link": "https://github.com/juandjara"
+    },
+    {
+      "icon": "/icons/instagram.svg",
+      "label": "Instagram",
+      "link": "https://instagram.com/_juandjara"
+    },
+    {
+      "icon": "/icons/email.svg",
+      "label": "Email",
+      "link": "mailto:hola@juandjara.com"
+    }
+  ]
+}
