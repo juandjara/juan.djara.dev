@@ -104,7 +104,6 @@ export async function getSiteData() {
 export async function getProjects() {
   const fullPath = safeJoin(CONTENT_PATH, "projects")
   const directory = await fs.readdir(fullPath)
-  console.log("dir: ", directory)
 
   const posts = await Promise.all(
     directory
