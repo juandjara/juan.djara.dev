@@ -1,75 +1,141 @@
 import {
   isRouteErrorResponse,
   Links,
-  Meta,
   Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "react-router";
+  ScrollRestoration
+} from "react-router"
 
-import type { Route } from "./+types/root";
-import "./app.css";
+import appCSS from "./app.css?url"
+import type { Route } from "./+types/root"
+import { Link } from "react-router"
+import Header from "./components/Header"
+import { getTheme, setTheme, toggleTheme } from "./lib/themeCoookie.server"
+import type { RootData } from "./lib/types"
+import { getPost, getSiteData } from "./lib/content.server"
+import Footer from "./components/Footer"
+import {
+  getLang,
+  setLang,
+  supportedLanguages,
+  type Lang
+} from "./lib/lang.server"
+import useRootData from "./lib/useRootData"
+import { redirect } from "react-router"
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
     href: "https://fonts.gstatic.com",
-    crossOrigin: "anonymous",
+    crossOrigin: "anonymous"
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
   },
-];
+  {
+    rel: "stylesheet",
+    href: appCSS
+  }
+]
+
+export async function loader({ request }: Route.LoaderArgs) {
+  const [lang, theme, siteData] = await Promise.all([
+    getLang(request),
+    getTheme(request),
+    getSiteData()
+  ])
+  const footer = await getPost("footer", lang)
+  return {
+    lang,
+    langOptions: supportedLanguages,
+    theme,
+    siteData,
+    footer
+  } satisfies RootData
+}
+
+export async function action({ request }: Route.ActionArgs) {
+  const form = await request.formData()
+  const action = form.get("action")
+  const pathname = String(form.get("pathname") ?? "/")
+  if (action === "theme") {
+    const newTheme = await toggleTheme(request)
+    return redirect(pathname, {
+      headers: {
+        "Set-Cookie": await setTheme(newTheme)
+      }
+    })
+  }
+  if (action === "lang") {
+    const lang = form.get("lang") as Lang | null
+    return redirect(pathname, {
+      headers: {
+        "Set-Cookie": await setLang(lang)
+      }
+    })
+  }
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const { lang, theme } = useRootData()
   return (
-    <html lang="en">
+    <html lang={lang} className={theme}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <Meta />
+        <meta name="title" content="Juan D. Jara" />
+        <meta
+          name="description"
+          content="Sitio web personal de Juan D. Jara, desarrollador web. Redes, notas y proyectos"
+        />
         <Links />
       </head>
       <body>
+        <Header />
         {children}
+        <Footer />
         <ScrollRestoration />
-        <Scripts />
       </body>
     </html>
-  );
+  )
 }
 
 export default function App() {
-  return <Outlet />;
+  return <Outlet />
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-  let stack: string | undefined;
+  let message = "😞 Sorry, there was an oopsie."
+  let details = "An unexpected error occurred."
+  let stack: string | undefined
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
+    message = error.status === 404 ? "404" : "Error"
     details =
       error.status === 404
         ? "The requested page could not be found."
-        : error.statusText || details;
+        : error.statusText || details
   } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
+    details = error.message
+    stack = error.stack
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main className="container pb-4 pt-16 mx-auto prose dark:prose-invert">
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="overflow-x-auto p-4 w-full">
           <code>{stack}</code>
         </pre>
       )}
+      <Link
+        to=".."
+        className="text-base inline-block mr-2 px-3 py-2 rounded-sm no-underline bg-sky-200 hover:bg-sky-200/50 transition-colors"
+      >
+        Go back
+      </Link>
     </main>
-  );
+  )
 }

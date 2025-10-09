@@ -1,15 +1,31 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans:
+    "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-primary: var(--color-orange-600);
+  --color-primary-dark: var(--color-yellow-600);
 }
+
+@custom-variant dark (&:where(.dark, .dark *));
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-sky-100 dark:bg-sky-950;
 
-  @media (prefers-color-scheme: dark) {
+  &.dark {
     color-scheme: dark;
+
+    .text-primary {
+      color: var(--color-primary-dark);
+    }
   }
+}
+
+.grid-layer {
+  grid-column: 1;
+  grid-row: 1;
 }
