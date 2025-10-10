@@ -19,7 +19,7 @@ export default function ProjectCards({
 }) {
   const cards = projects.slice(0, 3)
   return (
-    <div className="pt-32 sm:flex flex-wrap justify-center gap-6 items-center h-full">
+    <div className="pt-8 sm:pt-32 sm:flex flex-wrap justify-center gap-6 items-center h-full">
       {cards.map((p) => (
         <div key={p.link} className="relative pb-6 sm:pb-0">
           <div className="mx-auto rounded-xl w-[300px] h-[300px] border border-primary dark:border-primary-dark shadow-primary dark:shadow-primary-dark shadow-md hover:shadow-lg transition-all transform hover:-translate-y-4 ease-in-out duration-300">
