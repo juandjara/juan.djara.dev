@@ -30,10 +30,10 @@ export default function Index() {
           )}
         </div>
         <div className="grid-layer">
-          <ProjectCards lang={lang} projects={projects} />
+          <ProjectCards lang={lang!} projects={projects} />
         </div>
       </div>
-      <main className="snap-start pt-[80px] prose prose-orange dark:prose-yellow px-4 py-8 prose-xl mx-auto dark:prose-invert">
+      <main className="snap-start prose prose-orange dark:prose-yellow px-4 py-8 prose-xl mx-auto dark:prose-invert">
         <MDX code={post.code} />
       </main>
     </>

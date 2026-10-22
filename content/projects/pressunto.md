@@ -1,8 +1,8 @@
 ---
 link: https://pressunto.fly.dev
 image: https://pressunto.fly.dev/favicon.ico
-order: 2
-status: 
+order: 7
+status:
 backgroundUrl: https://pressunto.fly.dev/screenshot.png
 title: Pressunto
 ---

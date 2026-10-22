@@ -1,10 +1,10 @@
 {
   "title": "Juan D. Jara",
-  "subtitle": "Web Developer",
+  "subtitle": "Senior Software Engineer",
   "socials": [
     {
       "icon": "/icons/fediverse.svg",
-      "label": "WAFRN",
+      "label": "Fediverse",
       "link": "https://app.wafrn.net/javascript"
     },
     {
@@ -19,9 +19,9 @@
       "hidden": true
     },
     {
-      "icon": "/icons/mastodon.svg",
-      "label": "Mastodon",
-      "link": "https://paquita.masto.host/@juandjara"
+      "icon": "/icons/codeberg.svg",
+      "label": "Codeberg",
+      "link": "https://codeberg.org/juandjara"
     },
     {
       "icon": "/icons/github.svg",

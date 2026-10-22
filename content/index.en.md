@@ -1,13 +1,15 @@
-Hi 👋 I'm Juan, a web developer from Seville with over 8 years of experience creating **digital interfaces**.
+Hiya! 👋 I'm Juan, senior front-end engineer from Sevilla with 10 years of experience turning chaotic messy datasets into interfaces people actually enjoy using.
 
-My work ranges from creating **functional designs** and **attractive interfaces** to developing **large-scale data visualizations**, implementing **efficient systems** for their presentation. Although my specialization lies in the **Front-end** part of projects, my work frequently extends to other areas such as graphic design or **data quality**, ensuring comprehensive solutions. Consistency, design, and interactivity are the fundamental pillars that define each of my projects.
+Day to day I build **geospatial products** with **React and deck.gl** for enterprise and public-sector clients and React-based libraries shared by whole teams. If the situation requires it I go beyond, in areas like graphic design or deploy and data management tools although I'm not afraid to dig deep into API codebases if I deem it necessary.
 
-I have contributed to several public open source projects 🤝
+My main rule is **to keep complexity down**. I would rather prove an idea with a small protoype than argue for it, I write the decisions down, and I don't ship code I don't understand, AI-assisted or not.
 
-* [deck.gl](https://github.com/visgl/deck.gl/pulls?q=is%3Apr+author%3Ajuandjara)
-* [react-static](https://www.npmjs.com/package/react-static-plugin-md)
-* [quill.js](https://www.npmjs.com/package/quill-blot-formatter-mobile)
-* [prose.io](https://github.com/prose/prose/pull/1129)
-* [wafrn](https://github.com/gabboman/wafrn/pulls/juandjara)
+Outside my day job, I like contributing to open source communities I'm part of or ones that have benefited me in some way 🤝
 
-If you want to know more, find me at the links below 👇
+- [wafrn](https://codeberg.org/wafrn/wafrn/pulls/juandjara)
+- [deck.gl](https://github.com/visgl/deck.gl/pulls?q=is%3Apr+author%3Ajuandjara)
+- [react-static](https://www.npmjs.com/package/react-static-plugin-md)
+- [quill.js](https://www.npmjs.com/package/quill-blot-formatter-mobile)
+- [prose.io](https://github.com/prose/prose/pull/1129)
+
+Want to talk about open source, the frontend ecosystem or map design? Find me down here 👇
