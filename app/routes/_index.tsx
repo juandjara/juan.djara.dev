@@ -7,6 +7,7 @@ import { BeachNightBgBlue } from "@/components/svg/BeachNightBgBlue"
 import { getLang } from "@/lib/lang.server"
 import type { Route } from "./+types/_index"
 import ProjectCards from "@/components/ProjectCards"
+import Canvas from "@/components/Canvas"
 
 export async function loader({ request }: Route.LoaderArgs) {
   const lang = await getLang(request)
@@ -23,6 +24,9 @@ export default function Index() {
     <>
       <div className="snap-start grid">
         <div className="grid-layer">
+          <Canvas />
+        </div>
+        <div className="grid-layer">
           {theme === "light" ? (
             <BeachNightBgLight className="h-full w-full" />
           ) : (
@@ -33,7 +37,7 @@ export default function Index() {
           <ProjectCards lang={lang!} projects={projects} />
         </div>
       </div>
-      <main className="snap-start prose prose-orange dark:prose-yellow px-4 py-8 prose-xl mx-auto dark:prose-invert">
+      <main className="above-canvas snap-start prose prose-orange dark:prose-yellow px-4 py-8 prose-xl mx-auto dark:prose-invert">
         <MDX code={post.code} />
       </main>
     </>

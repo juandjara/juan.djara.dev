@@ -36,7 +36,7 @@ export default function ProjectCards({
           </p>
         </div>
       ))}
-      <div>
+      <div className="above-canvas">
         <p className="text-center">
           <a
             className="text-primary hover:underline"

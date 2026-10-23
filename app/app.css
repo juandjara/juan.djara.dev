@@ -16,18 +16,21 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-html,
+html.dark {
+  color-scheme: dark;
+}
+
 body {
-  background-color: var(--color-bg);
+  background-color: light-dark(var(--color-bg), var(--color-bg-dark));
+}
 
-  &.dark {
-    color-scheme: dark;
-    background-color: var(--color-bg-dark);
+.text-primary {
+  color: light-dark(var(--color-primary), var(--color-primary-dark));
+}
 
-    .text-primary {
-      color: var(--color-primary-dark);
-    }
-  }
+.above-canvas {
+  position: relative;
+  z-index: 10;
 }
 
 .grid-layer {
