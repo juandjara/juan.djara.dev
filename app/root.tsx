@@ -2,25 +2,20 @@ import {
   isRouteErrorResponse,
   Links,
   Outlet,
-  ScrollRestoration
+  Scripts,
+  ScrollRestoration,
+  type ShouldRevalidateFunctionArgs
 } from "react-router"
 
 import appCSS from "./app.css?url"
 import type { Route } from "./+types/root"
 import { Link } from "react-router"
 import Header from "./components/Header"
-import { getTheme, setTheme, toggleTheme } from "./lib/themeCoookie.server"
 import type { RootData } from "./lib/types"
 import { getPost, getSiteData } from "./lib/content.server"
 import Footer from "./components/Footer"
-import {
-  getLang,
-  setLang,
-  supportedLanguages,
-  type Lang
-} from "./lib/lang.server"
+import { parseLang, supportedLanguages } from "./lib/lang"
 import useRootData from "./lib/useRootData"
-import { redirect } from "react-router"
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://api.fontshare.com" },
@@ -43,50 +38,44 @@ export const links: Route.LinksFunction = () => [
   }
 ]
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const [lang, theme, siteData] = await Promise.all([
-    getLang(request),
-    getTheme(request),
-    getSiteData()
+export async function loader({ params }: Route.LoaderArgs) {
+  const lang = parseLang(params.lang)
+  const [siteData, footer] = await Promise.all([
+    getSiteData(),
+    getPost("footer", lang)
   ])
-  const footer = await getPost("footer", lang)
   return {
     lang,
     langOptions: supportedLanguages,
-    theme,
     siteData,
     footer
   } satisfies RootData
 }
 
-export async function action({ request }: Route.ActionArgs) {
-  const form = await request.formData()
-  const action = form.get("action")
-  const pathname = String(form.get("pathname") ?? "/")
-  if (action === "theme") {
-    const newTheme = await toggleTheme(request)
-    return redirect(pathname, {
-      headers: {
-        "Set-Cookie": await setTheme(newTheme)
-      }
-    })
-  }
-  if (action === "lang") {
-    const lang = form.get("lang") as Lang | null
-    return redirect(pathname, {
-      headers: {
-        "Set-Cookie": await setLang(lang)
-      }
-    })
-  }
+// `lang` belongs to a child route, so root would otherwise keep stale data
+export function shouldRevalidate({
+  currentParams,
+  nextParams,
+  defaultShouldRevalidate
+}: ShouldRevalidateFunctionArgs) {
+  return currentParams.lang !== nextParams.lang || defaultShouldRevalidate
 }
 
+// Runs before first paint so the stored or system theme applies without a flash
+const themeScript = `(function () {
+  var theme
+  try { theme = localStorage.getItem("theme") } catch (e) {}
+  var dark = theme ? theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches
+  if (dark) document.documentElement.classList.add("dark")
+})()`
+
 export function Layout({ children }: { children: React.ReactNode }) {
-  const { lang, theme } = useRootData()
+  const { lang } = useRootData()
   return (
-    <html lang={lang} className={theme}>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="title" content="Juan D. Jara" />
         <meta
@@ -100,6 +89,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {children}
         <Footer />
         <ScrollRestoration />
+        <Scripts />
       </body>
     </html>
   )

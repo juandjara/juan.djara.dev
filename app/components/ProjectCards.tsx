@@ -1,4 +1,4 @@
-import type { Lang } from "@/lib/lang.server"
+import type { Lang } from "@/lib/lang"
 import type { Project } from "@/lib/types"
 
 const translations = {

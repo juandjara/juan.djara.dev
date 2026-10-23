@@ -1,41 +1,41 @@
 import useRootData from "@/lib/useRootData"
-import { useRevalidator } from "react-router"
-import { useFetcher } from "react-router"
-import { useLocation } from "react-router"
-import { useSubmit } from "react-router"
-import { Form } from "react-router"
+import { Link } from "react-router"
 import { Fragment } from "react"
 import clsx from "clsx"
 
+// Netlify's `Language` redirect for `/` reads this cookie before Accept-Language
+function rememberLang(lang: string) {
+  document.cookie = `nf_lang=${lang}; path=/; max-age=31536000; samesite=lax`
+}
+
 export default function LangSelect() {
   const { lang, langOptions } = useRootData()
-  const pathname = useLocation().pathname
 
   if (!langOptions) {
     return null
   }
 
   return (
-    <Form action="/" method="post">
-      <input type="hidden" name="pathname" value={pathname} />
-      <input type="hidden" name="action" value="lang" />
+    <nav>
       {langOptions.map((l, i) => (
         <Fragment key={l}>
           {i > 0 ? <span className="separator"> | </span> : null}
-          <button
-            value={l}
-            name="lang"
+          <Link
+            to={`/${l}/`}
+            hrefLang={l}
+            aria-current={lang === l ? "page" : undefined}
+            onClick={() => rememberLang(l)}
             className={clsx(
-              "w-10 p-2 rounded-md dark:hover:bg-white/10 hover:bg-black/10 cursor-pointer",
+              "inline-block w-10 p-2 text-center rounded-md dark:hover:bg-white/10 hover:bg-black/10",
               {
                 "opacity-60": lang !== l
               }
             )}
           >
             {l.toUpperCase()}
-          </button>
+          </Link>
         </Fragment>
       ))}
-    </Form>
+    </nav>
   )
 }

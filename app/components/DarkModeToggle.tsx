@@ -1,14 +1,12 @@
-import useRootData from "@/lib/useRootData"
-import { Form, useLocation } from "react-router"
 
-const Sun = () => (
+const Sun = ({ className }: { className: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className={className}
   >
     <path
       strokeLinecap="round"
@@ -18,14 +16,14 @@ const Sun = () => (
   </svg>
 )
 
-const Moon = () => (
+const Moon = ({ className }: { className: string }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className="w-6 h-6"
+    className={className}
   >
     <path
       strokeLinecap="round"
@@ -35,20 +33,22 @@ const Moon = () => (
   </svg>
 )
 
-export default function DarkModeToggle() {
-  const { theme } = useRootData()
-  const pathname = useLocation().pathname
+function toggleTheme() {
+  const dark = document.documentElement.classList.toggle("dark")
+  try {
+    localStorage.setItem("theme", dark ? "dark" : "light")
+  } catch {}
+}
 
+export default function DarkModeToggle() {
   return (
-    <Form action="/" method="post">
-      <input type="hidden" name="pathname" value={pathname} />
-      <button
-        name="action"
-        value="theme"
-        className="p-2 dark:hover:bg-orange-50/50 hover:bg-orange-200/50 rounded-md text-primary"
-      >
-        {theme === "light" ? <Sun /> : <Moon />}
-      </button>
-    </Form>
+    <button
+      type="button"
+      onClick={toggleTheme}
+      className="p-2 dark:hover:bg-orange-50/50 hover:bg-orange-200/50 rounded-md text-primary"
+    >
+      <Sun className="w-6 h-6 dark:hidden" />
+      <Moon className="w-6 h-6 hidden dark:block" />
+    </button>
   )
 }

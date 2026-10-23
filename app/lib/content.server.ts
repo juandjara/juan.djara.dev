@@ -1,64 +1,41 @@
-import { bundleMDX } from "mdx-bundler"
-import { mdxPlugins } from "./mdxPlugins.server"
+import { unified } from "unified"
+import remarkParse from "remark-parse"
+import remarkRehype from "remark-rehype"
+import rehypeStringify from "rehype-stringify"
+import remarkEmoji from "remark-emoji"
+import remarkImages from "remark-images"
+import frontMatter from "front-matter"
 import { fileExists, safeJoin } from "./files.server"
 import path from "path"
 import fs from "fs/promises"
 import type { ProjectFrontMatter, SiteData } from "./types"
 
-process.env.ESBUILD_BINARY_PATH = path.join(
-  process.cwd(),
-  "node_modules",
-  "esbuild",
-  "bin",
-  "esbuild"
-)
-
 const CONTENT_PATH = path.join(process.cwd(), "content")
 const PUBLIC_PATH = path.join(process.cwd(), "public")
 
-export type MDXData<
+export type MarkdownData<
   F extends {
     [key: string]: any
   } = {}
 > = {
-  code: string
+  html: string
   frontmatter: F
 }
 
-async function renderMDX(fullPath: string) {
-  const plugins = await mdxPlugins()
-  const cwd = path.dirname(fullPath)
-  const mdx = await bundleMDX({
-    cwd,
-    file: fullPath,
-    mdxOptions(options) {
-      options.remarkPlugins = [
-        ...(options.remarkPlugins ?? []),
-        ...plugins.remarkPlugins
-      ]
-      options.rehypePlugins = [
-        ...(options.rehypePlugins ?? []),
-        ...plugins.rehypePlugins
-      ]
-      return options
-    },
-    esbuildOptions(options) {
-      options.outdir = cwd.replace("/content/", "/public/")
-      options.loader = options.loader || {}
-      options.loader[".png"] = "file"
-      options.loader[".svg"] = "file"
-      options.loader[".jpg"] = "file"
-      options.publicPath = "/"
-      return options
-    }
-  })
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkEmoji, { accessible: true })
+  .use(remarkImages)
+  .use(remarkRehype)
+  .use(rehypeStringify)
 
-  return { code: mdx.code, frontmatter: mdx.frontmatter }
-}
-
-export async function readMDX(filePath: string) {
-  const fullPath = safeJoin(CONTENT_PATH, filePath)
-  return renderMDX(fullPath)
+async function renderMarkdown<F extends { [key: string]: any }>(
+  fullPath: string
+): Promise<MarkdownData<F>> {
+  const text = await fs.readFile(fullPath, { encoding: "utf-8" })
+  const { attributes, body } = frontMatter<F>(text)
+  const html = String(await processor.process(body))
+  return { html, frontmatter: attributes }
 }
 
 export async function getPost(slug: string, lang?: string, extension = "md") {
@@ -70,9 +47,9 @@ export async function getPost(slug: string, lang?: string, extension = "md") {
   }
   const fallbackPath = safeJoin(CONTENT_PATH, `${slug}.${extension}`)
   if (lang && (await fileExists(fullPath))) {
-    return renderMDX(fullPath)
+    return renderMarkdown(fullPath)
   } else if (await fileExists(fallbackPath)) {
-    return renderMDX(fallbackPath)
+    return renderMarkdown(fallbackPath)
   } else {
     throw new Response("Markdown file does not exist", { status: 404 })
   }
@@ -114,7 +91,7 @@ export async function getProjects() {
       .map(async (file) => {
         const post = await getPost(`projects/${file}`)
         return {
-          description: post.code,
+          description: post.html,
           ...(post.frontmatter as ProjectFrontMatter)
         }
       })

@@ -1,6 +1,6 @@
 import useRootData from "@/lib/useRootData"
 import Social from "./Social"
-import MDX from "./MDX"
+import Markdown from "./Markdown"
 
 export default function Footer() {
   const { footer, siteData } = useRootData()
@@ -31,31 +31,31 @@ export default function Footer() {
             | next →
           </a>
         </div>
-        {footer ? <MDX code={footer.code} /> : null}
+        {footer ? <Markdown html={footer.html} /> : null}
         <div className="flex gap-2 flex-wrap items-center justify-center py-8 max-w-prose mx-auto">
           <a href="https://cyrneko.eu">
-            <img alt="cyrneko" src="88x31/cyrneko.png" />
+            <img alt="cyrneko" src="/88x31/cyrneko.png" />
           </a>
           <a href="https://broto.solar">
-            <img alt="broto" src="88x31/broto.webp" />
+            <img alt="broto" src="/88x31/broto.webp" />
           </a>
           <a href="https://jbc.lol/">
-            <img alt="jbtn" src="88x31/jbtn.svg" />
+            <img alt="jbtn" src="/88x31/jbtn.svg" />
           </a>
           <a href="https://wafrn.net">
-            <img alt="wafrn" src="88x31/wafrn.webp" />
+            <img alt="wafrn" src="/88x31/wafrn.webp" />
           </a>
           <a href="https://starlightnet.work">
-            <img alt="starlightnetwork" src="88x31/starlightnetwork.webp" />
+            <img alt="starlightnetwork" src="/88x31/starlightnetwork.webp" />
           </a>
           <a href="https://cybernetica.cc">
-            <img alt="cybernetica" src="88x31/cybernetica.png" />
+            <img alt="cybernetica" src="/88x31/cybernetica.png" />
           </a>
-          <img alt="firefox" src="88x31/firefox.png" />
-          <img alt="vscodium" src="88x31/vscodium.gif" />
-          <img alt="anythingbutchrome" src="88x31/anythingbutchrome.gif" />
-          <img alt="ublockorigin" src="88x31/ublockorigin.webp" />
-          <img alt="bestviewedcomp" src="88x31/bestviewedcomp.gif" />
+          <img alt="firefox" src="/88x31/firefox.png" />
+          <img alt="vscodium" src="/88x31/vscodium.gif" />
+          <img alt="anythingbutchrome" src="/88x31/anythingbutchrome.gif" />
+          <img alt="ublockorigin" src="/88x31/ublockorigin.webp" />
+          <img alt="bestviewedcomp" src="/88x31/bestviewedcomp.gif" />
           <iframe
             src="//incr.easrng.net/badge?key=juandjara"
             style={{ background: "url(//incr.easrng.net/bg.gif)" }}

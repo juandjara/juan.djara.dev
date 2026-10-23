@@ -1,6 +1,6 @@
-import { type MDXData } from "./content.server"
+import { type MarkdownData } from "./content.server"
 import type { SocialItem } from "@/components/Social"
-import type { Lang } from "./lang.server"
+import type { Lang } from "./lang"
 
 export type SiteData = {
   title: string
@@ -11,8 +11,7 @@ export type SiteData = {
 export type RootData = {
   lang?: Lang
   langOptions?: readonly Lang[]
-  theme?: "light" | "dark"
-  footer?: MDXData
+  footer?: MarkdownData
   siteData?: SiteData
 }
 

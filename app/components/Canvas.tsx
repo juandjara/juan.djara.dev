@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useRef } from "react"
 
 const NUM_POINTS = 20
@@ -9,26 +7,19 @@ function applySpring(from: number, to: number, spring = SPRING) {
   return from + (to - from) * spring
 }
 
-export default function Canvas({ theme }: { theme?: "light" | "dark" }) {
+export default function Canvas() {
   const ref = useRef<HTMLCanvasElement>(null)
   const data = useRef({
     color: "",
     enabled: false,
-    lastPoint: { x: window.innerWidth / 2, y: window.innerHeight / 2 },
-    trail: new Array(NUM_POINTS).fill({
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2
-    })
+    lastPoint: { x: 0, y: 0 },
+    trail: [] as { x: number; y: number }[]
   })
 
   useEffect(() => {
-    if (ref.current) {
-      const color = window.getComputedStyle(ref.current).color
-      data.current.color = color
-    }
-  }, [theme])
-
-  useEffect(() => {
+    const center = { x: window.innerWidth / 2, y: window.innerHeight / 2 }
+    data.current.lastPoint = center
+    data.current.trail = new Array(NUM_POINTS).fill(center)
     if (ref.current) {
       ref.current.width = window.innerWidth
       ref.current.height = window.innerHeight
@@ -39,7 +30,9 @@ export default function Canvas({ theme }: { theme?: "light" | "dark" }) {
       data.current.lastPoint = { x, y }
     }
     const handleMouseover = () => {
-      if (!data.current.enabled) {
+      if (!data.current.enabled && ref.current) {
+        // read on every activation so it follows theme changes
+        data.current.color = window.getComputedStyle(ref.current).color
         data.current.enabled = true
         animate()
       }
@@ -86,7 +79,6 @@ export default function Canvas({ theme }: { theme?: "light" | "dark" }) {
             const xc = 0.5 * (x + next.x)
             const yc = 0.5 * (y + next.y)
             ctx.quadraticCurveTo(x, y, xc, yc)
-            console.log("line width", ctx.lineWidth)
           }
         })
         ctx.strokeStyle = data.current.color

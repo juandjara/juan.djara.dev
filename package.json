@@ -5,26 +5,24 @@
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
-    "start": "react-router-serve ./build/server/index.js",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
-    "@escapace/accept-language-parser": "^2.1.1",
-    "@netlify/vite-plugin-react-router": "^1.0.1",
     "@react-router/node": "^7.9.2",
-    "@react-router/serve": "^7.9.2",
-    "@vitejs/plugin-rsc": "^0.5.38",
     "clsx": "^2.1.1",
     "front-matter": "^4.0.2",
     "isbot": "^5.1.31",
-    "mdx-bundler": "^10.1.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-error-boundary": "^6.0.0",
     "react-router": "^7.9.2",
+    "rehype-stringify": "^10.0.1",
     "remark-emoji": "^5.0.2",
-    "remark-images": "^4.1.0"
+    "remark-images": "^4.1.0",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.2",
+    "unified": "^11.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

@@ -1,24 +1,22 @@
 import { getPost, getProjects } from "@/lib/content.server"
-import MDX from "@/components/MDX"
+import Markdown from "@/components/Markdown"
 import { useLoaderData } from "react-router"
-import useRootData from "@/lib/useRootData"
 import { BeachNightBgLight } from "@/components/svg/BeachNightBgLight"
 import { BeachNightBgBlue } from "@/components/svg/BeachNightBgBlue"
-import { getLang } from "@/lib/lang.server"
-import type { Route } from "./+types/_index"
+import { parseLang } from "@/lib/lang"
+import type { Route } from "./+types/($lang)._index"
 import ProjectCards from "@/components/ProjectCards"
 import Canvas from "@/components/Canvas"
 
-export async function loader({ request }: Route.LoaderArgs) {
-  const lang = await getLang(request)
+export async function loader({ params }: Route.LoaderArgs) {
+  const lang = parseLang(params.lang)
   const post = await getPost("index", lang)
   const projects = await getProjects()
-  return { post, projects }
+  return { lang, post, projects }
 }
 
 export default function Index() {
-  const { theme, lang } = useRootData()
-  const { post, projects } = useLoaderData<typeof loader>()
+  const { lang, post, projects } = useLoaderData<typeof loader>()
 
   return (
     <>
@@ -27,18 +25,15 @@ export default function Index() {
           <Canvas />
         </div>
         <div className="grid-layer">
-          {theme === "light" ? (
-            <BeachNightBgLight className="h-full w-full" />
-          ) : (
-            <BeachNightBgBlue className="h-full w-full" />
-          )}
+          <BeachNightBgLight className="h-full w-full dark:hidden" />
+          <BeachNightBgBlue className="h-full w-full hidden dark:block" />
         </div>
         <div className="grid-layer">
-          <ProjectCards lang={lang!} projects={projects} />
+          <ProjectCards lang={lang} projects={projects} />
         </div>
       </div>
       <main className="above-canvas snap-start prose prose-orange dark:prose-yellow px-4 py-8 prose-xl mx-auto dark:prose-invert">
-        <MDX code={post.code} />
+        <Markdown html={post.html} />
       </main>
     </>
   )
