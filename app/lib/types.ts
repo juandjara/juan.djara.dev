@@ -11,7 +11,8 @@ export type SiteData = {
 export type RootData = {
   lang?: Lang
   langOptions?: readonly Lang[]
-  footer?: MarkdownData
+  footer1?: MarkdownData
+  footer2?: MarkdownData
   siteData?: SiteData
 }
 

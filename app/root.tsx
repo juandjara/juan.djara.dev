@@ -40,15 +40,17 @@ export const links: Route.LinksFunction = () => [
 
 export async function loader({ params }: Route.LoaderArgs) {
   const lang = parseLang(params.lang)
-  const [siteData, footer] = await Promise.all([
+  const [siteData, footer1, footer2] = await Promise.all([
     getSiteData(),
-    getPost("footer", lang)
+    getPost("footer1", lang),
+    getPost("footer2", lang)
   ])
   return {
     lang,
     langOptions: supportedLanguages,
     siteData,
-    footer
+    footer1,
+    footer2
   } satisfies RootData
 }
 

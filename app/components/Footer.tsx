@@ -3,7 +3,7 @@ import Social from "./Social"
 import Markdown from "./Markdown"
 
 export default function Footer() {
-  const { footer, siteData } = useRootData()
+  const { footer1, footer2, siteData } = useRootData()
   return (
     <footer className="max-w-prose mx-auto text-center px-2 py-8 text-slate-500 dark:text-slate-300">
       {siteData ? (
@@ -31,7 +31,7 @@ export default function Footer() {
             | next →
           </a>
         </div>
-        {footer ? <Markdown html={footer.html} /> : null}
+        {footer1 ? <Markdown html={footer1.html} /> : null}
         <div className="flex gap-2 flex-wrap items-center justify-center py-8 max-w-prose mx-auto">
           <a href="https://cyrneko.eu">
             <img alt="cyrneko" src="/88x31/cyrneko.png" />
@@ -63,6 +63,10 @@ export default function Footer() {
             width="88"
             height="31"
           ></iframe>
+        </div>
+        {footer2 ? <Markdown html={footer2.html} /> : null}
+        <div className="flex justify-center py-4">
+          <img alt="" src="/88x31/djara-dev.png" />
         </div>
       </div>
     </footer>
