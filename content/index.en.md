@@ -4,12 +4,4 @@ Day to day I build **geospatial products** with **React and deck.gl** for enterp
 
 My main rule is **to keep complexity down**. I would rather prove an idea with a small protoype than argue for it, I write the decisions down, and I don't ship code I don't understand, AI-assisted or not.
 
-Outside my day job, I like contributing to open source communities I'm part of or ones that have benefited me in some way 🤝
-
-- [wafrn](https://codeberg.org/wafrn/wafrn/pulls/juandjara)
-- [deck.gl](https://github.com/visgl/deck.gl/pulls?q=is%3Apr+author%3Ajuandjara)
-- [react-static](https://www.npmjs.com/package/react-static-plugin-md)
-- [quill.js](https://www.npmjs.com/package/quill-blot-formatter-mobile)
-- [prose.io](https://github.com/prose/prose/pull/1129)
-
 Want to talk about open source, the frontend ecosystem or map design? Find me down here 👇

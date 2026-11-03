@@ -4,12 +4,4 @@ En mi dia a dia construyo **productos geoespaciales** con **React y deck.gl** pa
 
 Mi regla principal es **mantener la complejidad a raya**. Prefiero demostrar una idea con un prototipo pequeño para defenderla, dejo las decisiones por escrito, y no subo &oacute;digo que no entiendo, lo haya escrito una IA o no.
 
-Fuera del trabajo, me gusta contribuir a comunidades de proyectos open source, de las que formo parte o he tomado algún beneficio 🤝
-
-- [wafrn](https://codeberg.org/wafrn/wafrn/pulls/juandjara)
-- [deck.gl](https://github.com/visgl/deck.gl/pulls?q=is%3Apr+author%3Ajuandjara)
-- [react-static](https://www.npmjs.com/package/react-static-plugin-md)
-- [quill.js](https://www.npmjs.com/package/quill-blot-formatter-mobile)
-- [prose.io](https://github.com/prose/prose/pull/1129)
-
 ¿Quieres hablar de open source, el ecosistema frontend o el diseño de mapas? Encuentrame aqu&iacute; abajo 👇
