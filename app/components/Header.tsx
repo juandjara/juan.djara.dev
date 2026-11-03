@@ -5,7 +5,7 @@ import LangSelect from "./LangSelect"
 export default function Header() {
   const { siteData } = useRootData()
   return (
-    <header className="flex flex-wrap items-start justify-end gap-2 p-4 md:fixed top-0 right-0 left-0 z-10">
+    <header className="above-canvas flex flex-wrap items-start justify-end gap-2 p-4 md:fixed top-0 right-0 left-0 z-10">
       <img
         src="/images/avatar.jpeg"
         width="72"
