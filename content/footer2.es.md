@@ -1,1 +1,1 @@
-Y este es el mío:
+Y este es el mío. Puedes usarlo como quieras.
