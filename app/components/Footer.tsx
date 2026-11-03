@@ -63,6 +63,14 @@ export default function Footer() {
             width="88"
             height="31"
           ></iframe>
+          <a href="https://sable.moe">
+            <img
+              src="https://docs.sable.moe/img/88x31.png"
+              alt="Sable Matrix Client"
+              width="88"
+              height="31"
+            />
+          </a>
         </div>
         {footer2 ? <Markdown html={footer2.html} /> : null}
         <div className="flex justify-center py-4">
